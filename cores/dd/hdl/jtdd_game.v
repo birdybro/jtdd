@@ -114,7 +114,7 @@ wire               service;
 assign dwnld_busy = downloading;
 assign service = 1;
 
-wire cen12, cen8, cen6, cen4, cen3, cen3q, cen1p5, cen12b, cen6b, cen3b, cen3qb;
+wire cen12, cen6, cen1p5;
 wire cpu_cen;
 wire rom_ready;
 
@@ -130,14 +130,14 @@ jtframe_cen48 u_cen(
     .cen16   (           ),
     .cen8    (           ),
     .cen6    (  pxl_cen  ),
-    .cen4    (  cen4     ),
+    .cen4    (           ),
     .cen4_12 (           ),
-    .cen3    (  cen3     ),
-    .cen3b   (  cen3b    ),
-    .cen3q   (  cen3q    ), // 1/4 advanced with respect to cen3
-    .cen3qb  (  cen3qb   ), // 1/4 advanced with respect to cen3b
-    .cen1p5  (  cen1p5   ),
-    .cen12b  (  cen12b   ),
+    .cen3    (           ),
+    .cen3b   (           ),
+    .cen3q   (           ),
+    .cen3qb  (           ),
+    .cen1p5  (           ),
+    .cen12b  (           ),
     .cen6b   (  pxl_cenb ),
     .cen1p5b (           )
 );
@@ -148,28 +148,19 @@ wire alt12, alt6;
 // prevent timing error in 6809 CC bit Z
 jtframe_cen24 u_cen24(
     .clk     (  clk24    ),    // 48 MHz
-    .cen12   (  alt12    ),
-    .cen6    (  alt6     ),
+    .cen12   (  cen12    ),
+    .cen6    (  cen6     ),
     .cen4    (           ),
     .cen3    (           ),
     .cen3b   (           ),
-    .cen3q   (           ), // 1/4 advanced with respect to cen3
-    .cen3qb  (           ), // 1/4 advanced with respect to cen3b
-    .cen1p5  (           ),
+    .cen3q   (           ),
+    .cen3qb  (           ),
+    .cen1p5  (  cen1p5   ),
     .cen12b  (           ),
     .cen6b   (           ),
     .cen1p5b (           )
 );
 
-`ifdef DD48
-assign cen12 = pxl2_cen;
-assign cen6 = pxl_cen;
-wire clk_alt = clk;
-`else
-assign cen12 = alt12;
-assign cen6  = alt6;
-wire clk_alt = clk24;
-`endif
 
 jtdd_prom_we u_prom(
     .clk          ( clk             ),
@@ -187,7 +178,7 @@ jtdd_prom_we u_prom(
 
 `ifndef NOMAIN
 jtdd_main u_main(
-    .clk            ( clk_alt       ),
+    .clk            ( clk24         ),
     .rst            ( rst           ),
     .cen12          ( cen12         ),
     .cpu_cen        ( cpu_cen       ),
@@ -259,10 +250,10 @@ assign mcu_rstb  = 1'b0;
 
 `ifndef NOMCU
 jtdd_mcu u_mcu(
-    .clk          (  clk_alt         ),
+    .clk          (  clk24           ),
     .mcu_rstb     (  mcu_rstb        ),
     .cen_Q        (  cpu_cen         ),
-    .cen6         (  cen6            ),
+    .cen6         (  cen1p5          ),
     // CPU bus
     .cpu_AB       (  cpu_AB[8:0]     ),
     .cpu_wrn      (  cpu_wrn         ),
@@ -298,7 +289,7 @@ jtframe_ram #(.aw(9)) u_shared(
 
 `ifndef NOSOUND
 jtdd_sound u_sound(
-    .clk         ( clk_alt       ),
+    .clk         ( clk24         ),
     .rst         ( rst           ),
     .cen6        ( cen6          ),
     .H8          ( H8            ),
