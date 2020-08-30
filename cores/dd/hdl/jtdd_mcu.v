@@ -25,7 +25,7 @@ module jtdd_mcu(
     input              clk,
     input              mcu_rstb,
     input              cen_Q,
-    input              cen6,
+    input              mcu_cen,
     // CPU bus
     input      [ 8:0]  cpu_AB,
     input              cpu_wrn,
@@ -126,7 +126,7 @@ end
 
 // Clock enable
 reg  waitn;
-wire cpu_cen = cen6 & (waitn | ~mcu_rstb);
+wire cpu_cen = mcu_cen & (waitn | ~mcu_rstb);
 
 always @(posedge clk) begin : cpu_clockenable
     if( !mcu_rstb ) begin
@@ -139,7 +139,7 @@ end
 
 wire halted;
 
-m6801 u_6801(   
+m6801 u_6801(
     .rst        ( ~mcu_rstb     ),
     .clk        ( clk           ),
     .cen        ( cpu_cen       ),
@@ -166,7 +166,7 @@ jtframe_dual_ram #(.aw(9)) u_shared(
     .addr0  ( A[8:0]      ),
     .we0    ( ~rnw & shared_cs  ),
     .q0     ( sh2mcu_dout ),
-    
+
     .data1  ( cpu_dout    ),
     .addr1  ( cpu_AB[8:0] ),
     .we1    ( ~cpu_wrn & com_cs & halted),

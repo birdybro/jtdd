@@ -111,9 +111,6 @@ wire               prom_prio_we;
 wire       [ 8:0]  scrhpos, scrvpos;
 wire               service;
 
-assign dwnld_busy = downloading;
-assign service = 1;
-
 wire cen12, cen6, cen1p5;
 wire cpu_cen;
 wire rom_ready;
@@ -121,8 +118,12 @@ wire rom_ready;
 // Pixel signals all from 48MHz clock
 wire pxl_cenb;
 
+assign dwnld_busy         = downloading;
+assign service            = 1;
+assign turbo              = status[6];
+
 assign {dipsw_b, dipsw_a} = dipsw;
-assign dip_flip = dipsw[7];
+assign dip_flip           = dipsw[7];
 
 jtframe_cen48 u_cen(
     .clk     (  clk      ),    // 48 MHz
@@ -253,7 +254,7 @@ jtdd_mcu u_mcu(
     .clk          (  clk24           ),
     .mcu_rstb     (  mcu_rstb        ),
     .cen_Q        (  cpu_cen         ),
-    .cen6         (  cen1p5          ),
+    .mcu_cen      (  cen1p5          ),
     // CPU bus
     .cpu_AB       (  cpu_AB[8:0]     ),
     .cpu_wrn      (  cpu_wrn         ),
