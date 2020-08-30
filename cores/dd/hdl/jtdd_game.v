@@ -56,7 +56,7 @@ module jtdd_game(
     input           dip_pause,
     inout           dip_flip,
     input           dip_test,
-    input   [ 1:0]  dip_fxlevel, // Not a DIP on the original PCB   
+    input   [ 1:0]  dip_fxlevel, // Not a DIP on the original PCB
     // Sound output (monoaural game)
     output  signed [15:0] snd,
     output          sample,
@@ -165,7 +165,7 @@ jtframe_cen24 u_cen24(
 assign cen12 = pxl2_cen;
 assign cen6 = pxl_cen;
 wire clk_alt = clk;
-`else 
+`else
 assign cen12 = alt12;
 assign cen6  = alt6;
 wire clk_alt = clk24;
@@ -239,7 +239,7 @@ jtdd_main u_main(
     .dipsw_a        ( dipsw_a       ),
     .dipsw_b        ( dipsw_b       )
 );
-`else 
+`else
 assign main_cs   = 1'b0;
 assign main_addr = 18'd0;
 assign char_cs   = 1'b0;
@@ -280,7 +280,7 @@ jtdd_mcu u_mcu(
     .rom_cs       (  mcu_cs          ),
     .rom_ok       (  mcu_ok          )
 );
-`else 
+`else
 reg    irqmain;
 assign mcu_irqmain = irqmain;
 assign mcu_ban = 1'b0;
@@ -300,7 +300,7 @@ jtframe_ram #(.aw(9)) u_shared(
 jtdd_sound u_sound(
     .clk         ( clk_alt       ),
     .rst         ( rst           ),
-    .cen12       ( cen12         ),
+    .cen6        ( cen6          ),
     .H8          ( H8            ),
     // communication with main CPU
     .snd_irq     ( snd_irq       ),
@@ -322,7 +322,7 @@ jtdd_sound u_sound(
     .adpcm1_ok   ( adpcm1_ok     ),
     // Sound output
     .sound       ( snd           ),
-    .sample      ( sample        )    
+    .sample      ( sample        )
 );
 `else
 assign sample   = 1'b0;
@@ -419,7 +419,7 @@ jtframe_rom #(
     .SLOT5_AW    ( 14              ),   // MCU
     .SLOT5_DW    (  8              ),
     .SLOT5_OFFSET( MCU_ADDR        ),
-    
+
     .SLOT7_AW    ( 18              ),
     .SLOT7_DW    (  8              ),
     .SLOT7_OFFSET(  0              ),   // Main
@@ -444,7 +444,7 @@ jtframe_rom #(
     .slot5_cs    ( mcu_cs        ),
     .slot6_cs    ( snd_cs        ),
     .slot7_cs    ( main_cs       ),
-    .slot8_cs    ( 1'b1          ), // objects   
+    .slot8_cs    ( 1'b1          ), // objects
 
     .slot0_ok    ( char_ok       ),
     .slot1_ok    ( scr_ok        ),

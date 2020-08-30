@@ -27,7 +27,7 @@
 module jtdd_sound(
     input           clk,        // 24 MHz
     input           rst,
-    input           cen12,
+    input           cen6,
     input           H8,
     // communication with main CPU
     input           snd_irq,
@@ -139,8 +139,8 @@ jtframe_ff u_ff(
 jtframe_sys6809 #(.RAM_AW(11)) u_cpu(
     .rstn       ( ~rst      ),
     .clk        ( clk       ),
-    .cen        ( cen12     ),    // This is normally the input clock to the CPU
-    .cpu_cen    ( cpu_cen   ),   // 1/4th of cen -> 3MHz
+    .cen        ( cen6      ),    // This is normally the input clock to the CPU
+    .cpu_cen    ( cpu_cen   ),   // 1/4th of cen -> 1.5MHz
 
     // Interrupts
     .nIRQ       ( irq_n     ),
