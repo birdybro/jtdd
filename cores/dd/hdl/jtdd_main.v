@@ -22,8 +22,6 @@
 // E,Q: 3 MHz
 // Q is 1/4th of wave advanced
 
-`timescale 1ns/1ps
-
 module jtdd_main(
     input              clk,
     input              rst,
@@ -119,7 +117,7 @@ always @(*) begin
             3'd0, 3'd1: ram_cs = 1'b1;
             `ifndef DD2
             3'd2: pal_cs  = 1'b1;
-            `else 
+            `else
             3'd2: ram_cs = 1'b1; // more available RAM in DD2
             `endif
             3'd3: char_cs = 1'b1;
@@ -133,7 +131,7 @@ always @(*) begin
                 `endif
                 begin
                     io_cs  = RnW;
-                    if(A[3] && !RnW) begin 
+                    if(A[3] && !RnW) begin
                         case( A[2:0] )
                             3'd0: misc_cs = 1'b1;
                             3'd1: w3801   = 1'b1; // H scroll
@@ -198,7 +196,7 @@ always @(posedge clk) begin
     case( A[3:0])
         4'd0:    cabinet_input <= { start_button, fix_joy(joystick1[5:0]) };
         4'd1:    cabinet_input <= { coin_input,   fix_joy(joystick2[5:0]) };
-        4'd2:    cabinet_input <= { 3'b111, mcu_ban, VBL, 
+        4'd2:    cabinet_input <= { 3'b111, mcu_ban, VBL,
             joystick2[6], joystick1[6], service };
         4'd3:    cabinet_input <= dipsw_a;
         4'd4:    cabinet_input <= dipsw_b;
@@ -259,7 +257,7 @@ jtframe_ff #(.W(3)) u_irq(
 );
 
 jtframe_sys6809 #(.RAM_AW(13)) u_cpu(
-    .rstn       ( ~rst      ), 
+    .rstn       ( ~rst      ),
     .clk        ( clk       ),
     .cen        ( cen12     ),    // This is normally the input clock to the CPU
     .cpu_cen    ( cpu_cen   ),   // 1/4th of cen -> 3MHz

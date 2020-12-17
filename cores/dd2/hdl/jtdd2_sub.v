@@ -16,8 +16,6 @@
     Version: 1.0
     Date: 2-12-2019 */
 
-`timescale 1ns/1ps
-
 // Port 4 configured as output --> use as address bus
 // Port 6 configured as output
 
@@ -93,7 +91,7 @@ always @(*) begin
         if( A[15:14]!=2'b11 )
             rom_cs    = 1'b1; // < Cxxx
         else begin
-            case( A[13:12])
+            case( A[13:12] )
                 2'b00: if(A[11:10]==2'b0) shared_cs   = 1'b1; // C
                 2'b01: nmi_ack     = !rnw; // D
                 2'b10: mcu_irqmain = !rnw; // E
@@ -118,6 +116,7 @@ jtframe_z80_romwait u_sub(
     .rst_n      ( rstn          ),
     .clk        ( clk           ),
     .cen        ( cen4          ),
+    .start      ( 1'b1          ),
     .int_n      ( 1'b1          ),
     .nmi_n      ( int_n         ),
     .busrq_n    ( busrq_n       ),
@@ -177,7 +176,7 @@ jtframe_dual_ram #(.aw(10),.dumpfile("sub.hex")) u_shared(
     .addr0  ( addrA       ),
     .we0    ( weA         ),
     .q0     ( sh2mcu_dout ),
-    
+
     .data1  ( dinB        ),
     .addr1  ( addrB       ),
     .we1    ( weB         ),
