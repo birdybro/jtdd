@@ -23,6 +23,7 @@ set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../m
 
 # SDRAM
 set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ../../modules/jtframe/hdl/sdram/jtframe_rom.qip  ]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) ../../../modules/jtframe/hdl/sound/jtframe_uprate2_fir.qip     ]
 
 set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ../../modules/jtgng_pll0.qip       ]
 set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ../../modules/jtgng_pll1.qip       ]

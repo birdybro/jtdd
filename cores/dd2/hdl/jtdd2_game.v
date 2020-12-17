@@ -16,8 +16,6 @@
     Version: 1.0
     Date: 2-12-2019 */
 
-`timescale 1ns/1ps
-
 module jtdd2_game(
     input           clk,
     input           clk24,
@@ -58,7 +56,7 @@ module jtdd2_game(
     input           dip_pause,
     inout           dip_flip,
     input           dip_test,
-    input   [ 1:0]  dip_fxlevel, // Not a DIP on the original PCB   
+    input   [ 1:0]  dip_fxlevel, // Not a DIP on the original PCB
     // Sound output (monoaural game)
     output  signed [15:0] snd,
     output          sample,
@@ -184,7 +182,7 @@ jtframe_cen24 u_cen24(
 `ifdef DD48
 assign cen12 = pxl2_cen;
 assign cen4  = main4;
-`else 
+`else
 assign cen12 = alt12;
 assign cen4  = alt4;
 `endif
@@ -270,7 +268,7 @@ jtdd_main u_main(
     .dipsw_a        ( dipsw_a       ),
     .dipsw_b        ( dipsw_b       )
 );
-`else 
+`else
 assign main_cs   = 1'b0;
 assign main_addr = 18'd0;
 assign char_cs   = 1'b0;
@@ -328,7 +326,7 @@ jtdd2_sub u_sub(
     .rom_cs       (  mcu_cs          ),
     .rom_ok       (  mcu_ok          )
 );
-`else 
+`else
 reg    irqmain;
 assign mcu_irqmain = irqmain;
 assign mcu_ban = 1'b0;
@@ -365,7 +363,7 @@ jtdd2_sound u_sound(
 
     // Sound output
     .sound       ( snd           ),
-    .sample      ( sample        )    
+    .sample      ( sample        )
 );
 `else
 assign sample     = 1'b0;
@@ -431,7 +429,7 @@ jtdd_video u_video(
     // Debug
     .gfx_en       (  gfx_en          )
 );
-`else 
+`else
 assign red   = 4'd0;
 assign blue  = 4'd0;
 assign green = 4'd0;
@@ -459,7 +457,7 @@ jtframe_rom #(
     .SLOT5_AW    ( 16              ),   // SUB
     .SLOT5_DW    (  8              ),
     .SLOT5_OFFSET( SUB_ADDR>>1     ),
-    
+
     .SLOT7_AW    ( 18              ),
     .SLOT7_DW    (  8              ),
     .SLOT7_OFFSET(  0              ),   // Main
@@ -484,7 +482,7 @@ jtframe_rom #(
     .slot5_cs    ( mcu_cs        ),
     .slot6_cs    ( snd_cs        ),
     .slot7_cs    ( main_cs       ),
-    .slot8_cs    ( 1'b1          ), // objects   
+    .slot8_cs    ( 1'b1          ), // objects
 
     .slot0_ok    ( char_ok       ),
     .slot1_ok    ( scr_ok        ),
