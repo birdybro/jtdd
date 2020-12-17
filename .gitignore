@@ -1,4 +1,9 @@
 rom/*
 *.bak
-mister/*
+cores/*/mister/*
+cores/*/mist/*
+cores/*/sidi/*
+*.bin
+*.log
+history
 

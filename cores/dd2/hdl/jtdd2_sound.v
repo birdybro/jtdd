@@ -22,8 +22,6 @@
 // E,Q: 3 MHz
 // Q is 1/4th of wave advanced
 
-`timescale 1ns/1ps
-
 module jtdd2_sound(
     input           clk,
     input           rst,
@@ -124,6 +122,7 @@ jtframe_sysz80 #(.RAM_AW(11)) u_cpu(
     .clk        ( clk           ),
     .cen        ( cen_fm        ),
     .cpu_cen    (               ),
+    .start      ( 1'b1          ),
     .int_n      ( int_n         ),
     .nmi_n      ( nmi_n         ),
     .busrq_n    ( 1'b1          ),

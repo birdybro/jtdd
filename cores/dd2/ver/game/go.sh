@@ -1,6 +1,4 @@
 #!/bin/bash
-JTFRAME=../../modules/jtframe
-
 if [ -e ../../mist/*hex ]; then
     for i in ../../mist/*hex; do
         if [ ! -e $(basename $i) ]; then
@@ -31,11 +29,10 @@ for k in $*; do
     fi
 done
 
-export GAME_ROM_PATH=../../../rom/JTDD2.rom
+export GAME_ROM_PATH=$ROM/JTDD2.rom
 export MEM_CHECK_TIME=240_000_000
 export BIN2PNG_OPTIONS="--scale"
 export CONVERT_OPTIONS="-resize 300%x300%"
-GAME_ROM_LEN=$(stat -c%s $GAME_ROM_PATH)
 export YM2151=1
 export M6809=1
 export MSM6295=1
@@ -48,11 +45,10 @@ fi
 # Generic simulation script from JTFRAME
 # JTFRAME_DUAL_RAM_DUMP
 echo "Game ROM length: " $GAME_ROM_LEN
-../../../modules/jtframe/bin/sim.sh $MIST -d GAME_ROM_LEN=$GAME_ROM_LEN \
-    -sysname dd2 -modules ../../../modules -d SCANDOUBLER_DISABLE=1 \
-    -d JTFRAME_MRA_DIP -d VIDEO_START=2 \
-    -videow 256 -videoh 240 -d BUTTONS=3 \
-    -d JT51_NODEBUG -d JTFRAME_CLK24 -d DD2 \
+$JTFRAME/bin/sim.sh $MIST  -sysname dd2 \
+    -def ../../hdl/jtdd2.def \
+    -d VIDEO_START=2 \
+    -d JT51_NODEBUG  -d JTFRAME_DUAL_RAM_DUMP \
     $*
 rm sub*.bin
 sub2bin

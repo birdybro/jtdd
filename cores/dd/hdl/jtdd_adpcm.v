@@ -22,8 +22,6 @@
 // E,Q: 3 MHz
 // Q is 1/4th of wave advanced
 
-`timescale 1ns/1ps
-
 module jtdd_adpcm(
     input               clk,
     input               rst,
@@ -40,14 +38,14 @@ module jtdd_adpcm(
     input               rom_ok,
 
     // Sound output
-    output  signed [11:0] snd
+    output  signed [11:0] snd,
+    output              sample
 );
 
 reg [9:0] cnt;
 reg [3:0] din;
 (*keep*) reg [7:0] addr0, addr1;
 (*keep*) reg       ad_rst, start;
-wire     sample;
 wire     over = addr0 == addr1;
 (*keep*) reg fail;
 
@@ -92,7 +90,7 @@ end
 assign rom_addr = { addr0[6:0], cnt[9:1] };
 assign rom_cs   = 1'b1;
 
-jt5205 u_decod(
+jt5205 #(.INTERPOL(0)) u_decod(
     .rst    ( ad_rst    ),
     .clk    ( clk       ),
     .cen    ( cen_oki   ),

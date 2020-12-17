@@ -59,23 +59,28 @@ wire               RnW, firq_n, irq_n;
 reg                ram_cs, latch_cs, ad_cs, fm_cs, ad0_cs, ad1_cs;
 wire               cen_fm, cen_fm2;
 wire signed [11:0] adpcm0_snd, adpcm1_snd;
-wire signed [15:0] fm_left, fm_right;
+wire signed [15:0] fm_left, fm_right, adpcm_snd_fir;
+wire signed [12:0] ac_mix;
 
+assign ac_mix   = { adpcm0_snd[11], adpcm0_snd } + { adpcm1_snd[11], adpcm1_snd };
 assign rom_addr = A[14:0];
 
-jtframe_mixer #(.W0(16),.W1(16),.W2(12), .W3(12), .WOUT(16)) u_mixer(
+localparam [7:0] FMGAIN  = 8'h18;
+localparam [7:0] PCMGAIN = 8'h30;
+
+jtframe_mixer #(.W0(16),.W1(16),.W2(16), .WOUT(16)) u_mixer(
     .clk    ( clk           ),
     .cen    ( cen_fm2       ),
     // input signals
     .ch0    ( fm_left       ),
     .ch1    ( fm_right      ),
-    .ch2    ( adpcm0_snd    ),
-    .ch3    ( adpcm1_snd    ),
+    .ch2    ( adpcm_snd_fir ),
+    .ch3    (               ),
     // gain for each channel in 4.4 fixed point format
-    .gain0  ( 8'h20         ),
-    .gain1  ( 8'h20         ),
-    .gain2  ( 8'h20         ),
-    .gain3  ( 8'h20         ),
+    .gain0  ( FMGAIN        ),
+    .gain1  ( FMGAIN        ),
+    .gain2  ( PCMGAIN       ),
+    .gain3  ( 8'h00         ),
     .mixed  ( sound         )
 );
 
@@ -211,7 +216,8 @@ jtdd_adpcm u_adpcm0(
     .rom_ok     ( adpcm0_ok     ),
 
     // Sound output
-    .snd        ( adpcm0_snd    )
+    .snd        ( adpcm0_snd    ),
+    .sample     ( adpcm_sample  )
 );
 
 jtdd_adpcm u_adpcm1(
@@ -232,8 +238,19 @@ jtdd_adpcm u_adpcm1(
     // Sound output
     .snd        ( adpcm1_snd    )
 );
-
-
+/*
+jtframe_uprate2_fir u_upsample2(
+    .rst        ( rst               ),
+    .clk        ( clk               ),
+    .sample     ( adpcm_sample      ),
+    .upsample   (                   ),
+    .l_in       ( { ac_mix, 3'd0 }  ),
+    .r_in       ( 16'd0             ),
+    .l_out      ( adpcm_snd_fir     ),
+    .r_out      (                   )
+);
+*/
+assign adpcm_snd_fir = { ac_mix, 3'd0 };
 `ifdef SIMULATION
 always @(negedge snd_irq) $display("INFO: sound latch %X", snd_latch );
 `endif
