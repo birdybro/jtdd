@@ -116,7 +116,6 @@ jtframe_z80_romwait u_sub(
     .rst_n      ( rstn          ),
     .clk        ( clk           ),
     .cen        ( cen4          ),
-    .start      ( 1'b1          ),
     .int_n      ( 1'b1          ),
     .nmi_n      ( int_n         ),
     .busrq_n    ( busrq_n       ),

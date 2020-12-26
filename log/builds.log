@@ -186,3 +186,6 @@ dd2           	mist	20201217	1	PASS	9e4b8ed	8732a53
 dd2           	mist	20201217	1	PASS	9e4b8ed	8732a53
 dd2           	sidi	20201217	1	PASS	9e4b8ed	8732a53
 dd2           	mister	20201217	1	PASS	9e4b8ed	8732a53
+dd2           	mist	20201226	1	FAIL	f016af9	b355a37
+dd            	mist	20201226	1	PASS	f016af9	b355a37
+dd2           	mist	20201226	1	PASS	f016af9	b355a37
