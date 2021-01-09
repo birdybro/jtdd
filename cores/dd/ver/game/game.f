@@ -12,20 +12,20 @@
 ../../hdl/jtdd_sound.v
 ../../hdl/jtdd_adpcm.v
 
-../../../modules/jtframe/hdl/ram/jtframe_prom.v
-../../../modules/jtframe/hdl/ram/jtframe_ram.v
-../../../modules/jtframe/hdl/ram/jtframe_dual_ram.v
+$JTFRAME/hdl/ram/jtframe_prom.v
+$JTFRAME/hdl/ram/jtframe_ram.v
+$JTFRAME/hdl/ram/jtframe_dual_ram.v
 # clocking
-../../../modules/jtframe/hdl/clocking/jtframe_cen48.v
-../../../modules/jtframe/hdl/clocking/jtframe_cen24.v
-../../../modules/jtframe/hdl/clocking/jtframe_frac_cen.v
-../../../modules/jtframe/hdl/jtframe_z80wait.v
+$JTFRAME/hdl/clocking/jtframe_cen48.v
+$JTFRAME/hdl/clocking/jtframe_cen24.v
+$JTFRAME/hdl/clocking/jtframe_frac_cen.v
+$JTFRAME/hdl/jtframe_z80wait.v
 # SDRAM
-../../../modules/jtframe/hdl/sdram/jtframe_rom.v
-../../../modules/jtframe/hdl/sdram/jtframe_romrq.v
-#../../../modules/jtframe/hdl/cpu/jtframe_sys6809.v
+$JTFRAME/hdl/sdram/jtframe_rom.v
+-F $JTFRAME/hdl/sdram/jtframe_sdram_bank.f
+#$JTFRAME/hdl/cpu/jtframe_sys6809.v
 # Other
-../../../modules/jtframe/hdl/jtframe_ff.v
-../../../modules/jtframe/hdl/jtframe_sh.v
-../../../modules/jtframe/hdl/sound/jtframe_mixer.v
-../../../modules/jtframe/hdl/video/jtframe_credits.v
+$JTFRAME/hdl/jtframe_ff.v
+$JTFRAME/hdl/jtframe_sh.v
+$JTFRAME/hdl/sound/jtframe_mixer.v
+$JTFRAME/hdl/video/jtframe_credits.v

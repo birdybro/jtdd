@@ -99,7 +99,8 @@ jt5205 #(.INTERPOL(0)) u_decod(
     .sound  ( snd       ),
     .irq    ( sample    ),
     // unused
-    .vclk_o (           )
+    .vclk_o (           ),
+    .sample (           )
 );
 
 endmodule

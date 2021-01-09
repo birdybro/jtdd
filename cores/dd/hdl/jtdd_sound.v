@@ -236,7 +236,8 @@ jtdd_adpcm u_adpcm1(
     .rom_ok     ( adpcm1_ok     ),
 
     // Sound output
-    .snd        ( adpcm1_snd    )
+    .snd        ( adpcm1_snd    ),
+    .sample     (               )
 );
 /*
 jtframe_uprate2_fir u_upsample2(

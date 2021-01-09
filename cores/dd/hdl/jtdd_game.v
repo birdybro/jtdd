@@ -120,6 +120,7 @@ wire pxl_cenb;
 
 assign dwnld_busy         = downloading;
 assign service            = 1;
+assign prog_rd            = 0;
 
 assign {dipsw_b, dipsw_a} = dipsw;
 assign dip_flip           = dipsw[7];
@@ -149,6 +150,7 @@ wire alt12, alt6;
 jtframe_cen24 u_cen24(
     .clk     (  clk24    ),    // 48 MHz
     .cen12   (  cen12    ),
+    .cen8    (           ),
     .cen6    (  cen6     ),
     .cen4    (           ),
     .cen3    (           ),
