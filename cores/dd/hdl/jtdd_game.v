@@ -120,7 +120,6 @@ wire pxl_cenb;
 
 assign dwnld_busy         = downloading;
 assign service            = 1;
-assign turbo              = status[6];
 
 assign {dipsw_b, dipsw_a} = dipsw;
 assign dip_flip           = dipsw[7];

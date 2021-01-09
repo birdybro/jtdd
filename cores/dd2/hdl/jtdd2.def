@@ -12,7 +12,6 @@ TV80S
 
 [mist|sidi]
 VIDEO_WIDTH=384
-JTFRAME_SCAN2X
 
 [mister]
 VIDEO_WIDTH=256

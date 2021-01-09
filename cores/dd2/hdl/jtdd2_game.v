@@ -115,7 +115,7 @@ assign service    = 1;
 assign prog_rd    = 0;
 
 wire cen12, cen8, cen6, cen4, cen3, cen3q, cen1p5, cen12b, cen6b, cen3b, cen3qb;
-wire cpu_cen, turbo;
+wire cpu_cen;
 wire rom_ready;
 
 localparam BANK_ADDR   = 22'h00000;
