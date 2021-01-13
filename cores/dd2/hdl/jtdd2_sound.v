@@ -42,7 +42,8 @@ module jtdd2_sound(
 
     // Sound output
     output     signed [15:0] sound,
-    output                   sample
+    output                   sample,
+    output                   peak
 );
 
 wire [ 7:0] cpu_dout, ram_dout, fm_dout, oki_dout;
@@ -58,7 +59,11 @@ assign rom_addr = A[14:0];
 wire cen_fm, cen_fm2, cen_oki;
 wire mreq_n;
 
+localparam [7:0] FMGAIN  = 8'h10,
+                 PCMGAIN = 8'h10;
+
 jtframe_mixer #(.W0(16),.W1(16),.W2(14),.W3(14), .WOUT(16)) u_mixer(
+    .rst    ( rst           ),
     .clk    ( clk           ),
     .cen    ( cen_fm2       ),
     // input signals
@@ -67,11 +72,12 @@ jtframe_mixer #(.W0(16),.W1(16),.W2(14),.W3(14), .WOUT(16)) u_mixer(
     .ch2    ( adpcm_snd     ),
     .ch3    ( adpcm_snd     ),
     // gain for each channel in 4.4 fixed point format
-    .gain0  ( 8'h28         ),
-    .gain1  ( 8'h28         ),
-    .gain2  ( 8'h38         ),
-    .gain3  ( 8'h38         ),
-    .mixed  ( sound         )
+    .gain0  ( FMGAIN        ),
+    .gain1  ( FMGAIN        ),
+    .gain2  ( PCMGAIN       ),
+    .gain3  ( PCMGAIN       ),
+    .mixed  ( sound         ),
+    .peak   ( peak          )
 );
 
 always @(*) begin
@@ -185,7 +191,7 @@ jt51 u_jt51(
 
 assign adpcm_cs = 1'b1;
 
-jt6295 u_adpcm(
+jt6295 #(.INTERPOL(2)) u_adpcm(
     .rst        ( rst       ),
     .clk        ( clk       ),
     .cen        ( cen_oki   ),

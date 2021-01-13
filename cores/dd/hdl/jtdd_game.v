@@ -60,6 +60,7 @@ module jtdd_game(
     // Sound output (monoaural game)
     output  signed [15:0] snd,
     output          sample,
+    output          game_led,
     input           enable_psg,
     input           enable_fm,
     // video
@@ -315,7 +316,8 @@ jtdd_sound u_sound(
     .adpcm1_ok   ( adpcm1_ok     ),
     // Sound output
     .sound       ( snd           ),
-    .sample      ( sample        )
+    .sample      ( sample        ),
+    .peak        ( game_led      )
 );
 `else
 assign sample   = 1'b0;

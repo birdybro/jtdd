@@ -22,8 +22,6 @@
 // E,Q: 3 MHz
 // Q is 1/4th of wave advanced
 
-`timescale 1ns/1ps
-
 module jtdd_sound(
     input           clk,        // 24 MHz
     input           rst,
@@ -49,7 +47,8 @@ module jtdd_sound(
     input           adpcm1_ok,
     // Sound output
     output     signed [15:0] sound,
-    output                   sample
+    output                   sample,
+    output                   peak
 );
 
 wire        [ 7:0] cpu_dout, ram_dout, fm_dout;
@@ -65,10 +64,11 @@ wire signed [12:0] ac_mix;
 assign ac_mix   = { adpcm0_snd[11], adpcm0_snd } + { adpcm1_snd[11], adpcm1_snd };
 assign rom_addr = A[14:0];
 
-localparam [7:0] FMGAIN  = 8'h18;
-localparam [7:0] PCMGAIN = 8'h30;
+localparam [7:0] FMGAIN  = 8'h08,
+                 PCMGAIN = 8'h10;
 
 jtframe_mixer #(.W0(16),.W1(16),.W2(16), .WOUT(16)) u_mixer(
+    .rst    ( rst           ),
     .clk    ( clk           ),
     .cen    ( cen_fm2       ),
     // input signals
@@ -81,7 +81,8 @@ jtframe_mixer #(.W0(16),.W1(16),.W2(16), .WOUT(16)) u_mixer(
     .gain1  ( FMGAIN        ),
     .gain2  ( PCMGAIN       ),
     .gain3  ( 8'h00         ),
-    .mixed  ( sound         )
+    .mixed  ( sound         ),
+    .peak   ( peak          )
 );
 
 always @(*) begin
