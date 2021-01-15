@@ -206,3 +206,9 @@ dd            	mist	20210113	1	PASS	621c399	74412e6
 dd2           	mist	20210113	1	PASS	621c399	74412e6
 dd2           	mist	20210113	1	PASS	621c399	74412e6
 dd2           	mist	20210113	1	PASS	621c399	74412e6
+dd            	sidi	20210113	1	FAIL	3270ece	74412e6
+dd2           	mist	20210113	1	PASS	3270ece	74412e6
+dd            	mister	20210113	1	FAIL	3270ece	74412e6
+dd2           	sidi	20210113	1	FAIL	3270ece	74412e6
+dd2           	mister	20210113	1	PASS	3270ece	74412e6
+dd            	mist	20210113	1	PASS	3270ece	74412e6
