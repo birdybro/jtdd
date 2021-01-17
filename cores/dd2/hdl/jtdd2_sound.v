@@ -191,7 +191,7 @@ jt51 u_jt51(
 
 assign adpcm_cs = 1'b1;
 
-jt6295 #(.INTERPOL(2)) u_adpcm(
+jt6295 #(.INTERPOL(1)) u_adpcm(
     .rst        ( rst       ),
     .clk        ( clk       ),
     .cen        ( cen_oki   ),
