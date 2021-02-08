@@ -53,6 +53,7 @@ module jtdd2_game(
     // DIP switches
     input   [31:0]  status,
     input   [31:0]  dipsw,
+    input           service,
     input           dip_pause,
     inout           dip_flip,
     input           dip_test,
@@ -109,10 +110,8 @@ wire       [ 7:0]  mcu_ram;
 wire               prom_prio_we;
 
 wire       [ 8:0]  scrhpos, scrvpos;
-wire               service;
 
 assign dwnld_busy = downloading;
-assign service    = 1;
 assign prog_rd    = 0;
 
 wire cen12, cen8, cen6, cen4, cen3, cen3q, cen1p5, cen12b, cen6b, cen3b, cen3qb;
