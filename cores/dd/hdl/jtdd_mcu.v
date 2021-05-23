@@ -16,8 +16,6 @@
     Version: 1.0
     Date: 2-12-2019 */
 
-`timescale 1ns/1ps
-
 // Port 4 configured as output --> use as address bus
 // Port 6 configured as output
 

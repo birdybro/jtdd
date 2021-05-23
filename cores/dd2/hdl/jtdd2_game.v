@@ -34,13 +34,12 @@ module jtdd2_game(
     // SDRAM interface
     input           downloading,
     output          dwnld_busy,
-    input           loop_rst,
     output          sdram_req,
     output  [21:0]  sdram_addr,
     input   [31:0]  data_read,
+    input           data_dst,
     input           data_rdy,
     input           sdram_ack,
-    output          refresh_en,
     // ROM LOAD
     input   [24:0]  ioctl_addr,
     input   [ 7:0]  ioctl_data,
@@ -116,7 +115,6 @@ assign prog_rd    = 0;
 
 wire cen12, cen8, cen6, cen4, cen3, cen3q, cen1p5, cen12b, cen6b, cen3b, cen3qb;
 wire cpu_cen;
-wire rom_ready;
 
 localparam BANK_ADDR   = 22'h00000;
 localparam MAIN_ADDR   = 22'h20000;
@@ -473,7 +471,6 @@ jtframe_rom #(
 ) u_rom (
     .rst         ( rst           ),
     .clk         ( clk           ),
-    .vblank      ( VBL           ),
 
     .slot0_cs    ( ~VBL          ),
     .slot1_cs    ( ~VBL          ),
@@ -509,16 +506,14 @@ jtframe_rom #(
     .slot7_dout  ( main_data     ),
     .slot8_dout  ( obj_data      ),
 
-    .ready       ( rom_ready     ),
     // SDRAM interface
     .sdram_req   ( sdram_req     ),
     .sdram_ack   ( sdram_ack     ),
+    .data_dst    ( data_dst      ),
     .data_rdy    ( data_rdy      ),
     .downloading ( downloading   ),
-    .loop_rst    ( loop_rst      ),
     .sdram_addr  ( sdram_addr    ),
     .data_read   ( data_read     ),
-    .refresh_en  ( refresh_en    ),
     // unused
     .slot3_ok    (               ),
     .slot4_ok    (               ),
