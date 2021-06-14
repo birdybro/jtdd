@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: MRA to ARC conversion check
 
 on:
   push:
