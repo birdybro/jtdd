@@ -42,7 +42,7 @@ module jtdd2_game(
     input           sdram_ack,
     // ROM LOAD
     input   [24:0]  ioctl_addr,
-    input   [ 7:0]  ioctl_data,
+    input   [ 7:0]  ioctl_dout,
     input           ioctl_wr,
     output  [21:0]  prog_addr,
     output  [ 7:0]  prog_data,
@@ -202,7 +202,7 @@ u_prom(
     .clk          ( clk             ),
     .downloading  ( downloading     ),
     .ioctl_addr   ( ioctl_addr      ),
-    .ioctl_data   ( ioctl_data      ),
+    .ioctl_dout   ( ioctl_dout      ),
     .ioctl_wr     ( ioctl_wr        ),
     .prog_addr    ( prog_addr       ),
     .prog_data    ( prog_data       ),

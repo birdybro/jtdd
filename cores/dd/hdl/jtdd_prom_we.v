@@ -29,7 +29,7 @@ module jtdd_prom_we(
     input                clk,
     input                downloading,
     input      [24:0]    ioctl_addr,
-    input      [ 7:0]    ioctl_data,
+    input      [ 7:0]    ioctl_dout,
     input                ioctl_wr,
     output reg [21:0]    prog_addr,
     output reg [ 7:0]    prog_data,
@@ -112,7 +112,7 @@ always @(posedge clk) begin
     if( set_done ) set_strobe <= 1'b0;
     if ( ioctl_wr ) begin
         prog_we   <= 1'b1;
-        prog_data <= ioctl_data;
+        prog_data <= ioctl_dout;
         `CLR_ALL
         if(ioctl_addr[21:16] < ADPCM_0[21:16]) begin // Main/Sound ROM
             prog_addr <= {1'b0, ioctl_addr[21:1]};
