@@ -1,5 +1,5 @@
 
-name: dd2 for mcp
+name: dd2 for mister
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  mcp_compilation:
+  mister_compilation:
 
     env:
       FTPUSER: ${{ secrets.FTPUSER }}
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: jotego/jtcore13
+      image: jotego/jtcore:20
       credentials:
         username: jotego
         password: ${{ secrets.DOCKER_LOGIN }}
@@ -33,5 +33,5 @@ jobs:
         with:
           submodules: true
           repository: ${{ github.repository }}
-      - name: compile for mcp
-        run: /docked_build.sh dd2 -mcp  
+      - name: compile for mister
+        run: /docked_build.sh dd2 -mister  
