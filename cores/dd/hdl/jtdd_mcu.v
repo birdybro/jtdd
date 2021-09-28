@@ -22,7 +22,6 @@
 module jtdd_mcu(
     input              clk,
     input              mcu_rstb,
-    input              cen_Q,
     input              mcu_cen,
     // CPU bus
     input      [ 8:0]  cpu_AB,

@@ -17,9 +17,10 @@
     Date: 2-12-2019 */
 
 module jtdd_game(
-    input           clk,
-    input           clk24,
     input           rst,
+    input           clk,
+    input           rst24,
+    input           clk24,
     output          pxl2_cen,
     output          pxl_cen,
     output          LVBL_dly,
@@ -111,12 +112,14 @@ wire               prom_prio_we;
 
 wire       [ 8:0]  scrhpos, scrvpos;
 
-wire cen12, cen6, cen1p5;
+wire cen12, cen6, cen3, cen1p5;
 wire cpu_cen;
 
 // Pixel signals all from 48MHz clock
 wire pxl_cenb;
+wire turbo;
 
+assign turbo              = status[13];
 assign dwnld_busy         = downloading;
 assign prog_rd            = 0;
 
@@ -151,7 +154,7 @@ jtframe_cen24 u_cen24(
     .cen8    (           ),
     .cen6    (  cen6     ),
     .cen4    (           ),
-    .cen3    (           ),
+    .cen3    (  cen3     ),
     .cen3b   (           ),
     .cen3q   (           ),
     .cen3qb  (           ),
@@ -177,10 +180,12 @@ jtdd_prom_we u_prom(
 );
 
 `ifndef NOMAIN
+wire main_cen = turbo ? 1'd1 : cen12;
+
 jtdd_main u_main(
     .clk            ( clk24         ),
-    .rst            ( rst           ),
-    .cen12          ( cen12         ),
+    .rst            ( rst24         ),
+    .cen12          ( main_cen      ),
     .cpu_cen        ( cpu_cen       ),
     .VBL            ( VBL           ),
     .IMS            ( IMS           ), // =VPOS[3]
@@ -249,11 +254,12 @@ assign mcu_rstb  = 1'b0;
 `endif
 
 `ifndef NOMCU
+wire mcu_cen = turbo ? cen3 : cen1p5;
+
 jtdd_mcu u_mcu(
     .clk          (  clk24           ),
     .mcu_rstb     (  mcu_rstb        ),
-    .cen_Q        (  cpu_cen         ),
-    .mcu_cen      (  cen1p5          ),
+    .mcu_cen      (  mcu_cen         ),
     // CPU bus
     .cpu_AB       (  cpu_AB[8:0]     ),
     .cpu_wrn      (  cpu_wrn         ),
@@ -290,7 +296,7 @@ jtframe_ram #(.aw(9)) u_shared(
 `ifndef NOSOUND
 jtdd_sound u_sound(
     .clk         ( clk24         ),
-    .rst         ( rst           ),
+    .rst         ( rst24         ),
     .cen6        ( cen6          ),
     .H8          ( H8            ),
     // communication with main CPU
