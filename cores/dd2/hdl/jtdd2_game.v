@@ -17,9 +17,10 @@
     Date: 2-12-2019 */
 
 module jtdd2_game(
-    input           clk,
-    input           clk24,
     input           rst,
+    input           clk,
+    input           rst24,
+    input           clk24,
     output          pxl2_cen,
     output          pxl_cen,
     output          LVBL_dly,
@@ -115,6 +116,8 @@ assign prog_rd    = 0;
 
 wire cen12, cen8, cen6, cen4, cen3, cen3q, cen1p5, cen12b, cen6b, cen3b, cen3qb;
 wire cpu_cen;
+wire turbo;
+
 
 localparam BANK_ADDR   = 22'h00000;
 localparam MAIN_ADDR   = 22'h20000;
@@ -136,17 +139,18 @@ localparam PROM_ADDR   = 22'h190000;
 localparam [21:0] SCR_SDRAM  = 22'h6_0000;
 localparam [21:0] OBJ_SDRAM  = 22'h8_0000;
 
+assign turbo              = status[13];
 assign {dipsw_b, dipsw_a} = dipsw[15:0];
 assign dip_flip = flip;
 
 // Pixel signals all from 48MHz clock
-wire pxl_cenb, main4, alt4, alt12;
+wire pxl_cenb, main8, main4, alt8, alt4, alt12;
 
 jtframe_cen48 u_cen(
     .clk     (  clk      ),    // 48 MHz
     .cen12   (  pxl2_cen ),
     .cen16   (           ),
-    .cen8    (           ),
+    .cen8    (  main8    ),
     .cen6    (  pxl_cen  ),
     .cen4    (           ),
     .cen4_12 (  main4    ),
@@ -165,6 +169,7 @@ jtframe_cen48 u_cen(
 jtframe_cen24 u_cen24(
     .clk     (  clk24    ),    // 48 MHz
     .cen12   (  alt12    ),
+    .cen8    (  alt8     ),
     .cen6    (           ),
     .cen4    (  alt4     ),
     .cen3    (           ),
@@ -180,9 +185,11 @@ jtframe_cen24 u_cen24(
 `ifdef DD48
 assign cen12 = pxl2_cen;
 assign cen4  = main4;
+assign cen8  = main8;
 `else
 assign cen12 = alt12;
 assign cen4  = alt4;
+assign cen8  = alt8;
 `endif
 
 jtdd_prom_we #(
@@ -213,10 +220,13 @@ u_prom(
 );
 
 `ifndef NOMAIN
+wire main_cen = turbo ? 1'd1 : cen12;
+//wire main_cen = cen12;
+
 jtdd_main u_main(
     .clk            ( clk24         ),  // slower clock to ease synthesis
-    .rst            ( rst           ),
-    .cen12          ( cen12         ),
+    .rst            ( rst24         ),
+    .cen12          ( main_cen      ),
     .cpu_cen        ( cpu_cen       ),
     .VBL            ( VBL           ),
     .IMS            ( IMS           ), // =VPOS[3]
@@ -301,11 +311,13 @@ assign mcu_rstb  = 1'b0;
 `endif
 
 `ifndef NOMCU
+wire mcu_cen = turbo ? cen8 : cen4;
+
 jtdd2_sub u_sub(
     .clk          (  clk24           ), // slower clock
-    .rst          (  rst             ),
+    .rst          (  rst24           ),
     .mcu_rstb     (  mcu_rstb        ),
-    .cen4         (  cen4            ),
+    .cen4         (  mcu_cen         ),
     .main_cen     (  cpu_cen         ),
     // CPU bus
     .main_AB      (  cpu_AB[8:0]     ),

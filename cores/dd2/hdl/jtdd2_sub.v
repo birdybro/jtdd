@@ -161,10 +161,11 @@ always @(posedge clk) begin
     weA      <= ~rnw && last_rnw && shared_cs;
 end
 
-always @(posedge clk) if(main_cen) begin
-    addrB <= {1'b0,main_AB};
-    dinB  <= main_dout;
-    weB   <= !main_wrn && com_cs && halted;
+//always @(posedge clk) if(main_cen) begin
+always @* begin
+    addrB = {1'b0,main_AB};
+    dinB  = main_dout;
+    weB   = !main_wrn && com_cs && halted;
 end
 
 jtframe_dual_ram #(.aw(10),.dumpfile("sub.hex")) u_shared(
