@@ -256,7 +256,7 @@ jtframe_ff #(.W(3)) u_irq(
     .qn      ( { nNMI, nFIRQ, nIRQ }            )
 );
 
-jtframe_sys6809 #(.RAM_AW(13)) u_cpu(
+jtframe_sys6809 #(.RAM_AW(13),.RECOVERY(0)) u_cpu(
     .rstn       ( ~rst      ),
     .clk        ( clk       ),
     .cen        ( cen12     ),    // This is normally the input clock to the CPU
