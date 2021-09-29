@@ -23,8 +23,6 @@ module jtdd_video(
     input              rst,
     input              pxl_cen,
     input              pxl_cenb,
-    input              dip_pause,
-    input              credits,
     // CPU bus
     input      [12:0]  cpu_AB,
     input              cpu_wrn,
@@ -171,12 +169,6 @@ jtdd_obj u_obj(
     .obj_pxl     ( obj_pxl          )
 );
 
-wire [ 3:0] game_red, game_green, game_blue;
-wire [11:0] game_rgb = {game_red, game_green, game_blue };
-wire        game_LVBL, game_LHBL;
-wire        credits_HB, credits_VB;
-
-
 jtdd_colmix u_colmix(
     .clk         ( clk              ),
     .rst         ( rst              ),
@@ -188,8 +180,8 @@ jtdd_colmix u_colmix(
     .cpu_wrn     ( cpu_wrn          ),
     .VBL         ( VBL              ),
     .HBL         ( HBL              ),
-    .LVBL_dly    ( game_LVBL        ),
-    .LHBL_dly    ( game_LHBL        ),
+    .LVBL_dly    ( LVBL_dly         ),
+    .LHBL_dly    ( LHBL_dly         ),
     .char_pxl    ( char_pxl         ),
     .obj_pxl     ( obj_pxl          ),
     .scr_pxl     ( scr_pxl          ),
@@ -197,26 +189,10 @@ jtdd_colmix u_colmix(
     .prog_addr   ( prog_addr        ),
     .prom_din    ( prom_din         ),
     .prom_prio_we( prom_prio_we     ),
-    .red         ( game_red         ),
-    .green       ( game_green       ),
-    .blue        ( game_blue        ),
+    .red         ( red              ),
+    .green       ( green            ),
+    .blue        ( blue             ),
     .gfx_en      ( gfx_en           )
-);
-
-jtframe_credits #(.BLKPOL(0),.PAGES(4)) u_credits (
-    .clk         ( clk              ),
-    .rst         ( rst              ),
-    .pxl_cen     ( pxl_cen          ),
-    // input image
-    .HB          ( game_LHBL        ),
-    .VB          ( game_LVBL        ),
-    .rgb_in      ( game_rgb         ),
-    .enable      ( ~dip_pause       ),
-    .toggle      ( credits          ),
-    // output image
-    .HB_out      ( LHBL_dly         ),
-    .VB_out      ( LVBL_dly         ),
-    .rgb_out     ({red, green, blue})
 );
 
 endmodule

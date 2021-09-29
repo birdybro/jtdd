@@ -335,8 +335,6 @@ jtdd_video u_video(
     .pxl_cen      (  pxl_cen         ),
     .pxl_cenb     (  pxl_cenb        ),
     .cen_Q        (  cpu_cen         ),
-    .dip_pause    (  dip_pause       ),
-    .credits      (  start_button[0] ),
     .cpu_AB       (  cpu_AB          ),
     .pal_cs       (  pal_cs          ),
     .char_cs      (  char_cs         ),
