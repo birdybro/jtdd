@@ -23,7 +23,6 @@
 // Replace 7eb825 for 7e8063 in main (non banked) CPU ROM.
 // The game will boot directly to the demo
 
-`timescale 1ns/1ps
 
 module jtdd_prom_we(
     input                clk,

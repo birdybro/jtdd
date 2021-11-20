@@ -16,7 +16,6 @@
     Version: 1.0
     Date: 14-12-2019 */
 
-`timescale 1ns/1ps
 
 module jtdd_dip(
     input              clk,

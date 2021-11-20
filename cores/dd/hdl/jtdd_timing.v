@@ -16,7 +16,6 @@
     Version: 1.0
     Date: 2-12-2017 */
 
-`timescale 1ns/1ps
 
 module jtdd_timing(
     input              clk,

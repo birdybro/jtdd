@@ -20,7 +20,6 @@
 // Object layer
 // Max 32 sprites per line
 
-`timescale 1ns/1ps
 
 module jtdd_obj(
     input              clk,
