@@ -16,6 +16,9 @@ Note that Double Dragon 1 and 2 are 57Hz games. Some screens do not support this
 ADPCM sounds with less treble than in MAME. Upon comparison with the arcade PCB, I think
 this is correct.
 
+Flip mode is not supported. Because this is a horizontal game and cocktail tables are not
+popular anymore, I don't plan to implement the flip mode.
+
 * If the game doesn't start up after loading the ROM press F3 (reset) or select reset from the OSD menu
 * Please post any issues to the github page. Click on the issues tab.
 
