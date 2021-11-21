@@ -3,7 +3,15 @@ rom/*
 cores/*/mister/*
 cores/*/mist/*
 cores/*/sidi/*
+cores/*/mcp/*
+cores/*/mc2/*
+cores/*/neptuno/*
 *.bin
 *.log
+*.png
+*.wav
+*.raw
+*.hex
+*.f
 history
 

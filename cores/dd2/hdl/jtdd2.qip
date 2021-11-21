@@ -1,3 +1,6 @@
+set MODULES ../../../modules
+set JTFRAME ../../../modules/jtframe/hdl
+
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../hdl/jtdd2_game.v   ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../hdl/jtdd2_sub.v    ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../dd/hdl/jtdd_main.v    ]
@@ -10,32 +13,32 @@ set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../d
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../dd/hdl/jtdd_timing.v  ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../hdl/jtdd2_sound.v   ]
 
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/clocking/jtframe_cen48.v       ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/clocking/jtframe_cen24.v       ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/clocking/jtframe_frac_cen.v    ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/jtframe_ff.v ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/ram/jtframe_ram.v  ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/sound/jtframe_mixer.v  ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/video/jtframe_charmsg.v ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/clocking/jtframe_cen48.v       ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/clocking/jtframe_cen24.v       ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/clocking/jtframe_frac_cen.v    ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/jtframe_ff.v ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/ram/jtframe_ram.v  ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/sound/jtframe_mixer.v  ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/video/jtframe_charmsg.v ]
 
 # SDRAM
-set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ../../modules/jtframe/hdl/sdram/jtframe_rom.qip  ]
+set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ${JTFRAME}/sdram/jtframe_rom.qip  ]
 
 # M6809
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/cpu/mc6809i.v         ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/cpu/jtframe_sys6809.v ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/cpu/mc6809i.v         ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/cpu/jtframe_sys6809.v ]
 
 # Z80
-set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ../../modules/jtframe/hdl/cpu/tv80/tv80s.qip    ]
-#set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ../../modules/jtframe/hdl/cpu/t80/T80.qip    ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/cpu/jtframe_z80.v     ]
-set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/jtframe_z80wait.v     ]
+set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ${JTFRAME}/cpu/tv80/tv80s.qip    ]
+#set_global_assignment -name QIP_FILE     [file join $::quartus(qip_path) ${JTFRAME}/cpu/t80/T80.qip    ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/cpu/jtframe_z80.v     ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/cpu/jtframe_z80wait.v     ]
 
 # JT51 (YM2151)
-set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) ../../modules/jt51/hdl/jt51.qip   ]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) ${MODULES}/jt51/hdl/jt51.qip   ]
 
 # MSM6295
-set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) ../../modules/jt6295/hdl/jt6295.qip   ]
+set_global_assignment -name QIP_FILE [file join $::quartus(qip_path) ${MODULES}/jt6295/hdl/jt6295.qip   ]
 
 # MCU
-set_global_assignment -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) ../../modules/jtframe/hdl/cpu/6801_core.sv   ]
+set_global_assignment -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/cpu/6801_core.sv   ]
