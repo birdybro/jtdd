@@ -19,6 +19,7 @@ set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRA
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/clocking/jtframe_frac_cen.v    ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/jtframe_ff.v ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/ram/jtframe_ram.v  ]
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/ram/jtframe_obj_buffer.v  ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/sound/jtframe_mixer.v  ]
 set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) ${JTFRAME}/video/jtframe_charmsg.v ]
 

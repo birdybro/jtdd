@@ -124,7 +124,7 @@ assign dwnld_busy         = downloading;
 assign prog_rd            = 0;
 
 assign {dipsw_b, dipsw_a} = dipsw;
-assign dip_flip           = dipsw[7];
+assign dip_flip           = flip;
 
 jtframe_cen48 u_cen(
     .clk     (  clk      ),    // 48 MHz
