@@ -8,6 +8,11 @@ on:
       - mist
       - build_dd
 
+  workflow_dispatch:
+
+  repository_dispatch:
+    types: rebuild
+
 jobs:
 
   mist_compilation:
