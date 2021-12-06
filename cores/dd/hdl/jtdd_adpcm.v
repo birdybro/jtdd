@@ -25,8 +25,8 @@
 module jtdd_adpcm(
     input               clk,
     input               rst,
-    (*direct_input*)    input cpu_cen,
-    (*direct_input*)    input cen_oki,        // 375 kHz
+    input               cpu_cen,
+    input               cen_oki,        // 375 kHz
     // communication with main CPU
     input   [ 7:0]      cpu_dout,
     input   [ 1:0]      cpu_AB,

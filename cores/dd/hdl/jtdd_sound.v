@@ -60,6 +60,7 @@ wire               cen_fm, cen_fm2;
 wire signed [11:0] adpcm0_snd, adpcm1_snd;
 wire signed [15:0] fm_left, fm_right, adpcm_snd_fir;
 wire signed [12:0] ac_mix;
+wire               adpcm_sample;
 
 assign ac_mix   = { adpcm0_snd[11], adpcm0_snd } + { adpcm1_snd[11], adpcm1_snd };
 assign rom_addr = A[14:0];
