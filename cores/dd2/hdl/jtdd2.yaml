@@ -1,0 +1,20 @@
+game:
+  - from: dd2
+    get:
+      - jtdd2_game.v
+      - jtdd2_sub.v
+      - jtdd2_sound.v
+  - from: dd1
+    get:
+      - common.yaml
+jtframe:
+  - from: cpu
+    get:
+      - tv80/tv80s.qip
+      - t80/T80.qip
+      - jtframe_z80.v
+      - jtframe_z80wait.v
+modules:
+  jt:
+    - name: jt6295
+
