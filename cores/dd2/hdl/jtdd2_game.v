@@ -377,13 +377,13 @@ jtdd2_sound u_sound(
     .peak        ( game_led      )
 );
 `else
-assign sample     = 1'b0;
-assign snd_left   = 16'd0;
-assign snd_right  = 16'd0;
-assign snd_cs     = 1'b0;
-assign snd_addr   = 15'd0;
-assign adpcm_cs   = 1'b0;
-assign adpcm_addr = 18'd0;
+assign sample     = 0;
+assign snd        = 0;
+assign game_led   = 0;
+assign snd_cs     = 0;
+assign snd_addr   = 0;
+assign adpcm_cs   = 0;
+assign adpcm_addr = 0;
 `endif
 
 `ifndef NOVIDEO
