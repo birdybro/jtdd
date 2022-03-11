@@ -103,6 +103,7 @@ always @(*) begin
             ad0_cs = ~A[0];
             ad1_cs =  A[0];
         end
+        default:;
     endcase
 end
 
@@ -128,8 +129,6 @@ end
 always @(posedge clk) begin
     cen_oki <= H8_edge;
 end
-
-wire ram_we = ram_cs & ~RnW;
 
 jtframe_ff u_ff(
     .clk      ( clk         ),

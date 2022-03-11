@@ -123,7 +123,7 @@ assign turbo              = status[13];
 assign dwnld_busy         = downloading;
 assign prog_rd            = 0;
 
-assign {dipsw_b, dipsw_a} = dipsw;
+assign {dipsw_b, dipsw_a} = dipsw[15:0];
 assign dip_flip           = flip;
 
 jtframe_cen48 u_cen(
