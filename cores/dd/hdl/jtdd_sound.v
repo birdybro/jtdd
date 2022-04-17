@@ -181,14 +181,14 @@ jt51 u_jt51(
     .clk        ( clk       ), // main clock
     .cen        ( cen_fm    ),
     .cen_p1     ( cen_fm2   ),
-    .cs_n       ( !fm_cs    ), // chip select
-    .wr_n       ( RnW       ), // write
+    .cs_n       ( ~fm_cs    ), // chip select
+    .wr_n       ( RnW | ~cpu_cen ), // write
     .a0         ( A[0]      ),
     .din        ( cpu_dout  ), // data in
     .dout       ( fm_dout   ), // data out
     .ct1        (           ),
     .ct2        (           ),
-    .irq_n      ( firq_n    ),  // I do not synchronize this signal
+    .irq_n      ( firq_n    ),
     // Low resolution output (same as real chip)
     .sample     ( sample    ), // marks new output sample
     .left       (           ),
