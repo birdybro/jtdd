@@ -23,8 +23,8 @@ module jtdd2_game(
     input           clk24,
     output          pxl2_cen,
     output          pxl_cen,
-    output          LVBL_dly,
-    output          LHBL_dly,
+    output          LVBL,
+    output          LHBL,
     output          HS,
     output          VS,
     // cabinet I/O
@@ -409,10 +409,10 @@ jtdd_video u_video(
     .scrvpos      ( scrvpos          ),
     // video signals
     .VBL          (  VBL             ),
-    .LVBL_dly     (  LVBL_dly        ),
+    .LVBL_dly     (  LVBL            ),
     .VS           (  VS              ),
     .HBL          (  HBL             ),
-    .LHBL_dly     (  LHBL_dly        ),
+    .LHBL_dly     (  LHBL            ),
     .HS           (  HS              ),
     .IMS          (  IMS             ),
     .flip         (  flip            ),

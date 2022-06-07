@@ -11,9 +11,7 @@ jtframe:
   - from: cpu
     get:
       - tv80/tv80s.qip
-      - t80/T80.qip
-      - jtframe_z80.v
-      - jtframe_z80wait.v
+      - jtframe_z80.yaml
 modules:
   jt:
     - name: jt6295
